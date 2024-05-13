@@ -9,6 +9,17 @@ import {
 
 await initialize();
 
+/**
+ * Handles the image cropping request.
+ *
+ * @param request - The incoming HTTP request.
+ * @returns The HTTP response with the cropped image or an error message.
+ * @throws Will throw an error if the request method is not POST or if processing fails.
+ *
+ * @example
+ * // How to call the function.
+ * fetch('/api/crop-image', { method: 'POST', body: formData });
+ */
 export default async (request: Request) => {
   if (request.method === "POST") {
     try {

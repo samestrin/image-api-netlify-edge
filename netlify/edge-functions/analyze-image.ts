@@ -53,7 +53,17 @@ export default async (request: Request) => {
 
 export const config = { path: "/api/analyze-image" };
 
-// Helper function to get brightness using ImageMagick
+/**
+ * Calculates the brightness of an image.
+ *
+ * @param data - The image data as a Uint8Array.
+ * @returns The average brightness of the image.
+ * @throws Will throw an error if reading the image fails.
+ *
+ * @example
+ * // How to use the function.
+ * const brightness = await getBrightness(fileData);
+ */
 async function getBrightness(data: Uint8Array): Promise<number> {
   let brightness = 0;
   await ImageMagick.read(data, (image: MagickImage) => {
@@ -80,7 +90,17 @@ async function getBrightness(data: Uint8Array): Promise<number> {
   return brightness;
 }
 
-// Custom function to get histogram data
+/**
+ * Generates the histogram of an image.
+ *
+ * @param data - The image data as a Uint8Array.
+ * @returns An object representing the histogram of the image.
+ * @throws Will throw an error if generating the histogram fails.
+ *
+ * @example
+ * // How to use the function.
+ * const histogram = getHistogram(fileData);
+ */
 function getHistogram(data: Uint8Array): Record<string, number> {
   const histogram: Record<string, number> = {};
   for (let i = 0; i < data.length; i += 4) {
