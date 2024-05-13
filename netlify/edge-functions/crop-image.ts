@@ -32,7 +32,7 @@ export default async (request: Request) => {
           headers: { "Content-Type": "application/json" },
         });
       }
-
+      console.log("about to crop");
       const cropped = await ImageMagick.read(
         fileData,
         async (image: MagickImage) => {
@@ -41,7 +41,7 @@ export default async (request: Request) => {
           return await image.write((data: Uint8Array) => data);
         }
       );
-
+      console.log(cropped);
       if (!cropped) {
         return new Response(JSON.stringify({ error: "Failed cropping" }), {
           status: 400,
