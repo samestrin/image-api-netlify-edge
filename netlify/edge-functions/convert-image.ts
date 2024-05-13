@@ -38,9 +38,10 @@ export default async (request: Request) => {
 
       // Write the input file data
       await Deno.writeFile(inputFile, fileData);
-
+      console.log("1");
       // Read and convert the image
       await ImageMagick.read(inputFile, async (image: MagickImage) => {
+        console.log("2");
         await image.create(outputFile);
       });
 
