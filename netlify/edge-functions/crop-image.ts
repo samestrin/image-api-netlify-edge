@@ -42,6 +42,13 @@ export default async (request: Request) => {
         }
       );
 
+      if (!cropped) {
+        return new Response(JSON.stringify({ error: "Failed cropping" }), {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+
       return new Response(cropped, {
         status: 200,
         headers: {
