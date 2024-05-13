@@ -1,1 +1,1 @@
-# image-size-api-digitalocean-edge-
+# image-size-api-netlify-edge-functions
