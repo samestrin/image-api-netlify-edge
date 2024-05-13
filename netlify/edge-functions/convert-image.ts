@@ -5,7 +5,7 @@ import {
   initialize,
   MagickImage,
   MagickFormat,
-} from "https://deno.land/x/imagemagick_deno/mod.ts";
+} from "https://deno.land/x/imagemagick_deno@0.0.26/mod.ts";
 
 await initialize();
 
@@ -35,7 +35,7 @@ export default async (request: Request) => {
       const converted = await ImageMagick.read(
         fileData,
         async (image: MagickImage) => {
-          const result = new Uint8Array(await image.create(targetFormatEnum));
+          const result = new Uint8Array(await image.write(targetFormatEnum));
           return result;
         }
       );
