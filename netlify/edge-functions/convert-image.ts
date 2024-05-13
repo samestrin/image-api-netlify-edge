@@ -41,13 +41,17 @@ export default async (request: Request) => {
 
       // Read and convert the image
       await ImageMagick.read(inputFile, async (image: MagickImage) => {
-        await image.write(targetFormatEnum, (data: Uint8Array) => {
-          Deno.writeFileSync(outputFile, data);
+        await image.write(targetFormatEnum, async (data: Uint8Array) => {
+          await Deno.writeFile(outputFile, data);
         });
       });
 
       // Read the converted image data
       const converted = await Deno.readFile(outputFile);
+
+      // Cleanup temporary files
+      await Deno.remove(inputFile);
+      await Deno.remove(outputFile);
 
       return new Response(converted, {
         status: 200,
