@@ -22,7 +22,7 @@ export default async (request: Request) => {
           headers: { "Content-Type": "application/json" },
         });
       }
-      console.log(MagickFormat);
+
       const targetFormatEnum =
         MagickFormat[capitalizeWords(targetFormat.toLowerCase())];
       if (!targetFormatEnum) {

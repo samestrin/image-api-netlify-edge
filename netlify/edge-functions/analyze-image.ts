@@ -67,7 +67,6 @@ async function getBrightness(data: Uint8Array): Promise<number> {
     }
   });
 
-  console.log(`Calculated Brightness: ${brightness}`);
   return brightness;
 }
 

@@ -6,7 +6,7 @@ export default async (request: Request) => {
     try {
       // Parse the multipart/form-data from the request
       const form = await multiParser(request);
-      console.log(form);
+
       const fileData = form.files.file.content;
 
       if (!fileData || !(fileData instanceof Uint8Array)) {
@@ -21,8 +21,6 @@ export default async (request: Request) => {
 
       const filename = form.files.file.filename || "";
       const contentType = form.files.file.contentType;
-
-      console.log("input", filename, contentType);
 
       let dimensions;
       switch (contentType) {
