@@ -3,6 +3,8 @@ import { multiParser } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
 import {
   ImageMagick,
   initialize,
+  MagickImage,
+  MagickGeometry,
 } from "https://deno.land/x/imagemagick_deno/mod.ts";
 
 await initialize();
@@ -12,8 +14,8 @@ export default async (request: Request) => {
     try {
       const form = await multiParser(request);
       const fileData = form.files.file.content;
-      const x = parseInt(form.fields.x);
-      const y = parseInt(form.fields.y);
+      const x = parseInt(form.fields.x) || 0;
+      const y = parseInt(form.fields.y) || 0;
       const width = parseInt(form.fields.width);
       const height = parseInt(form.fields.height);
 
@@ -31,20 +33,14 @@ export default async (request: Request) => {
         });
       }
 
-      const inputFile = await Deno.makeTempFile();
-      await Deno.writeFile(inputFile, fileData);
-
-      const outputFile = `${inputFile}_cropped.jpg`;
-      await ImageMagick.convert([
-        inputFile,
-        "-crop",
-        `${width}x${height}+${x}+${y}`,
-        outputFile,
-      ]);
-
-      const cropped = await Deno.readFile(outputFile);
-      await Deno.remove(inputFile);
-      await Deno.remove(outputFile);
+      const cropped = await ImageMagick.read(
+        fileData,
+        async (image: MagickImage) => {
+          const geometry = new MagickGeometry(width, height, x, y);
+          image.crop(geometry);
+          return await image.write((data: Uint8Array) => data);
+        }
+      );
 
       return new Response(cropped, {
         status: 200,
