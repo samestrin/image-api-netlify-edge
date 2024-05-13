@@ -1,11 +1,11 @@
-// file: netlify/edge-functions/crop-image.ts
 import { multiParser } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
 import {
   ImageMagick,
   initialize,
   MagickImage,
   MagickGeometry,
-} from "https://deno.land/x/imagemagick_deno/mod.ts";
+  MagickFormat,
+} from "https://deno.land/x/imagemagick_deno@0.0.26/mod.ts";
 
 await initialize();
 
@@ -13,6 +13,7 @@ export default async (request: Request) => {
   if (request.method === "POST") {
     try {
       const form = await multiParser(request);
+
       const fileData = form.files.file.content;
       const x = parseInt(form.fields.x) || 0;
       const y = parseInt(form.fields.y) || 0;
@@ -32,17 +33,32 @@ export default async (request: Request) => {
           headers: { "Content-Type": "application/json" },
         });
       }
-      console.log("about to crop");
+
       const cropped = await ImageMagick.read(
         fileData,
         async (image: MagickImage) => {
-          const geometry = new MagickGeometry(width, height, x, y);
+          // Ensure the cropping area does not exceed the original image dimensions
+          const cropWidth = Math.min(width, image.width - x);
+          const cropHeight = Math.min(height, image.height - y);
+
+          if (cropWidth <= 0 || cropHeight <= 0) {
+            throw new Error("Invalid cropping dimensions");
+          }
+
+          const geometry = new MagickGeometry(x, y, cropWidth, cropHeight);
+
           image.crop(geometry);
-          return await image.write((data: Uint8Array) => data);
+
+          const data = await image.write(
+            MagickFormat.Png,
+            (data: Uint8Array) => data
+          );
+
+          return data;
         }
       );
-      console.log(cropped);
-      if (!cropped) {
+
+      if (!cropped || cropped.length === 0) {
         return new Response(JSON.stringify({ error: "Failed cropping" }), {
           status: 400,
           headers: { "Content-Type": "application/json" },
@@ -52,7 +68,8 @@ export default async (request: Request) => {
       return new Response(cropped, {
         status: 200,
         headers: {
-          "Content-Type": "image/jpeg",
+          "Content-Type": "image/png",
+          "Content-Length": cropped.length.toString(),
         },
       });
     } catch (error) {
@@ -64,6 +81,7 @@ export default async (request: Request) => {
       });
     }
   }
+
   return new Response("Method Not Allowed", { status: 405 });
 };
 

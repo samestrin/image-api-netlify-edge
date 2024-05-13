@@ -1,9 +1,11 @@
-// file: netlify/edge-functions/resize-image.ts
 import { multiParser } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
 import {
   ImageMagick,
   initialize,
-} from "https://deno.land/x/imagemagick_deno/mod.ts";
+  MagickImage,
+  MagickFormat,
+  MagickGeometry,
+} from "https://deno.land/x/imagemagick_deno@0.0.26/mod.ts";
 
 await initialize();
 
@@ -11,6 +13,7 @@ export default async (request: Request) => {
   if (request.method === "POST") {
     try {
       const form = await multiParser(request);
+
       const fileData = form.files.file.content;
       const width = parseInt(form.fields.width);
       const height = parseInt(form.fields.height);
@@ -18,8 +21,7 @@ export default async (request: Request) => {
       if (
         !fileData ||
         !(fileData instanceof Uint8Array) ||
-        isNaN(width) ||
-        isNaN(height)
+        (isNaN(width) && isNaN(height))
       ) {
         return new Response(JSON.stringify({ error: "Invalid request" }), {
           status: 400,
@@ -27,25 +29,45 @@ export default async (request: Request) => {
         });
       }
 
-      const inputFile = await Deno.makeTempFile();
-      await Deno.writeFile(inputFile, fileData);
+      const resizedImage = await ImageMagick.read(
+        fileData,
+        async (image: MagickImage) => {
+          let newWidth = width;
+          let newHeight = height;
 
-      const outputFile = `${inputFile}_resized.jpg`;
-      await ImageMagick.convert([
-        inputFile,
-        "-resize",
-        `${width}x${height}`,
-        outputFile,
-      ]);
+          if (!isNaN(width) && isNaN(height)) {
+            // Only width is provided, calculate height to maintain aspect ratio
+            newHeight = Math.round((image.height / image.width) * width);
+          } else if (isNaN(width) && !isNaN(height)) {
+            // Only height is provided, calculate width to maintain aspect ratio
+            newWidth = Math.round((image.width / image.height) * height);
+          }
+          console.log(newWidth, newHeight);
+          const geometry = new MagickGeometry(newWidth, newHeight);
+          image.resize(geometry);
+          const data = await image.write(
+            MagickFormat.Png,
+            (data: Uint8Array) => data
+          );
+          return data;
+        }
+      );
 
-      const resized = await Deno.readFile(outputFile);
-      await Deno.remove(inputFile);
-      await Deno.remove(outputFile);
+      if (!resizedImage || resizedImage.length === 0) {
+        return new Response(
+          JSON.stringify({ error: "Failed to resize image" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
 
-      return new Response(resized, {
+      return new Response(resizedImage, {
         status: 200,
         headers: {
-          "Content-Type": "image/jpeg",
+          "Content-Type": "image/png",
+          "Content-Length": resizedImage.length.toString(),
         },
       });
     } catch (error) {

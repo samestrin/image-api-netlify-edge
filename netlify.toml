@@ -27,9 +27,9 @@
   path = "/api/resize-image"
 
 [[edge_functions]]
-  function = "edge-detection"
-  path = "/api/edge-detection"
-
-[[edge_functions]]
   function = "compress-image"
   path = "/api/compress-image"
+
+[[edge_functions]]
+  function = "edge-enhance"
+  path = "/api/edge-enhance"

@@ -4,7 +4,8 @@ import {
   initialize,
   MagickImage,
   MagickFormat,
-  MagickGeometry,
+  EvaluateOperator,
+  Channels,
 } from "https://deno.land/x/imagemagick_deno@0.0.26/mod.ts";
 
 await initialize();
@@ -15,26 +16,18 @@ export default async (request: Request) => {
       const form = await multiParser(request);
 
       const fileData = form.files.file.content;
-      const width = parseInt(form.fields.width) || 100; // Default width
-      const height = parseInt(form.fields.height) || 100; // Default height
-
-      if (
-        !fileData ||
-        !(fileData instanceof Uint8Array) ||
-        isNaN(width) ||
-        isNaN(height)
-      ) {
-        return new Response(JSON.stringify({ error: "Invalid request" }), {
+      if (!fileData || !(fileData instanceof Uint8Array)) {
+        return new Response(JSON.stringify({ error: "Invalid file data" }), {
           status: 400,
           headers: { "Content-Type": "application/json" },
         });
       }
 
-      const thumbnail = await ImageMagick.read(
+      const processedImage = await ImageMagick.read(
         fileData,
         async (image: MagickImage) => {
-          const geometry = new MagickGeometry(width, height);
-          image.resize(geometry);
+          // Apply evaluate method to enhance edges
+          image.evaluate(Channels.All, EvaluateOperator.Pow, 1.5);
 
           const data = await image.write(
             MagickFormat.Png,
@@ -45,9 +38,9 @@ export default async (request: Request) => {
         }
       );
 
-      if (!thumbnail || thumbnail.length === 0) {
+      if (!processedImage || processedImage.length === 0) {
         return new Response(
-          JSON.stringify({ error: "Failed to generate thumbnail" }),
+          JSON.stringify({ error: "Failed to process image" }),
           {
             status: 400,
             headers: { "Content-Type": "application/json" },
@@ -55,11 +48,11 @@ export default async (request: Request) => {
         );
       }
 
-      return new Response(thumbnail, {
+      return new Response(processedImage, {
         status: 200,
         headers: {
           "Content-Type": "image/png",
-          "Content-Length": thumbnail.length.toString(),
+          "Content-Length": processedImage.length.toString(),
         },
       });
     } catch (error) {
@@ -75,4 +68,4 @@ export default async (request: Request) => {
   return new Response("Method Not Allowed", { status: 405 });
 };
 
-export const config = { path: "/api/generate-thumbnail" };
+export const config = { path: "/api/edge-detection" };

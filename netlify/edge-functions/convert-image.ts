@@ -1,4 +1,3 @@
-// file: netlify/edge-functions/convert-image.ts
 import { multiParser } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
 import {
   ImageMagick,
