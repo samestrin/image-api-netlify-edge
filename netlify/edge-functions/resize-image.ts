@@ -42,7 +42,7 @@ export default async (request: Request) => {
             // Only height is provided, calculate width to maintain aspect ratio
             newWidth = Math.round((image.width / image.height) * height);
           }
-          console.log(newWidth, newHeight);
+
           const geometry = new MagickGeometry(newWidth, newHeight);
           image.resize(geometry);
           const data = await image.write(

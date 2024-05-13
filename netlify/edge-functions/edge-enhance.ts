@@ -11,7 +11,6 @@ import {
 await initialize();
 
 export default async (request: Request) => {
-  console.log(request);
   if (request.method === "POST") {
     try {
       const form = await multiParser(request);
