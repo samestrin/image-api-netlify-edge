@@ -65,7 +65,7 @@ netlify dev
 
 ### **Configuration**
 
-The `**netlify.toml**` file contains the configuration for the edge functions. Each function is mapped to a specific endpoint:
+The `netlify.toml` file contains the configuration for the edge functions. Each function is mapped to a specific endpoint:
 
 ```toml
 [build]
@@ -120,7 +120,7 @@ Use a tool like Postman or curl to make a request:
 
 ```bash
 curl -X POST \
-    https://localhost/api/analyze-image \
+    https://image-api-edge-function-demo.netlify.app/api/analyze-image \
     -F 'file=@/path/to/image.jpg'
 ```
 
@@ -151,7 +151,7 @@ Use a tool like Postman or curl to make a request:
 
 ```bash
 curl -X POST \
-    https://localhost/api/convert-image \
+    https://image-api-edge-function-demo.netlify.app/api/convert-image \
     -F 'file=@/path/to/image.jpg' \
     -F 'targetFormat=png'
 ```
@@ -177,7 +177,7 @@ Use a tool like Postman or curl to make a request:
 
 ```bash
 curl -X POST \
-    https://localhost/api/crop-image \
+    https://image-api-edge-function-demo.netlify.app/api/crop-image \
     -F 'file=@/path/to/image.jpg' \
     -F 'x=10' \
     -F 'y=10' \
@@ -202,7 +202,7 @@ Use a tool like Postman or curl to make a request:
 
 ```bash
 curl -X POST \
-    https://localhost/api/edge-enhance \
+    https://image-api-edge-function-demo.netlify.app/api/edge-enhance \
     -F 'file=@/path/to/image.jpg'
 ```
 
@@ -225,7 +225,7 @@ Use a tool like Postman or curl to make a request:
 
 ```bash
 curl -X POST \
-    https://localhost/api/generate-thumbnail \
+    https://image-api-edge-function-demo.netlify.app/api/generate-thumbnail \
     -F 'file=@/path/to/image.jpg' \
     -F 'width=100' \
     -F 'height=100'
@@ -248,7 +248,7 @@ Use a tool like Postman or curl to make a request:
 
 ```bash
 curl -X POST \
-    https://localhost/api/image-dimensions \
+    https://image-api-edge-function-demo.netlify.app/api/image-dimensions \
     -F 'file=@/path/to/image.jpg'
 ```
 
@@ -279,7 +279,7 @@ Use a tool like Postman or curl to make a request:
 
 ```bash
 curl -X POST \
-    https://localhost/api/resize-image \
+    https://image-api-edge-function-demo.netlify.app/api/resize-image \
     -F 'file=@/path/to/image.jpg' \
     -F 'width=800' \
     -F 'height=600'
