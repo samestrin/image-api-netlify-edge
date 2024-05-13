@@ -11,6 +11,7 @@ import {
 await initialize();
 
 export default async (request: Request) => {
+  console.log(request);
   if (request.method === "POST") {
     try {
       const form = await multiParser(request);
@@ -68,4 +69,4 @@ export default async (request: Request) => {
   return new Response("Method Not Allowed", { status: 405 });
 };
 
-export const config = { path: "/api/edge-detection" };
+export const config = { path: "/api/edge-enhance" };
