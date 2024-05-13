@@ -42,6 +42,13 @@ export default async (request: Request) => {
         }
       );
 
+      if (!converted) {
+        return new Response(JSON.stringify({ error: "Failed converting" }), {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+
       return new Response(converted, {
         status: 200,
         headers: {
