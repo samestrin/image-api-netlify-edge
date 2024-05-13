@@ -35,7 +35,7 @@ export default async (request: Request) => {
       const converted = await ImageMagick.read(
         fileData,
         async (image: MagickImage) => {
-          const result = new Uint8Array(await image.write(targetFormatEnum));
+          const result = new Uint8Array(await image.create(targetFormatEnum));
           return result;
         }
       );
