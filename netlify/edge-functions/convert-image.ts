@@ -32,17 +32,8 @@ export default async (request: Request) => {
         });
       }
 
-      // Create temporary files for input and output
-      const inputFile = await Deno.makeTempFile();
-      const outputFile = `${inputFile}.${targetFormat.toLowerCase()}`;
-
-      // Write the input file data
-      await Deno.writeFile(inputFile, fileData);
-
-      // Read and convert the image
-      const inputBuffer = await Deno.readFile(inputFile);
       const converted = await ImageMagick.read(
-        inputBuffer,
+        fileData,
         async (image: MagickImage) => {
           return await image.write(
             targetFormatEnum,
@@ -50,16 +41,6 @@ export default async (request: Request) => {
           );
         }
       );
-
-      // Write the converted image data to the output file
-      await Deno.writeFile(outputFile, converted);
-
-      // Read the converted image data
-      const outputData = await Deno.readFile(outputFile);
-
-      // Cleanup temporary files
-      await Deno.remove(inputFile);
-      await Deno.remove(outputFile);
 
       return new Response(converted, {
         status: 200,
