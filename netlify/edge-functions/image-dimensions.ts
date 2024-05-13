@@ -6,21 +6,23 @@ export default async (request: Request) => {
     try {
       // Parse the multipart/form-data from the request
       const form = await multiParser(request);
-      const fileData = form.files.file.Uint8Array;
+      console.log(form);
+      const fileData = form.files.file.content;
 
-      if (!fileData || !(fileData instanceof File)) {
+      if (!fileData || !(fileData instanceof Uint8Array)) {
         return new Response(
           JSON.stringify({ error: "No file uploaded or invalid file type" }),
           {
             status: 400,
-            headers: {
-              "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
           }
         );
       }
-      const filename = fileData.name || "";
-      const contentType = fileData["content-type"];
+
+      const filename = form.files.file.filename || "";
+      const contentType = form.files.file.contentType;
+
+      console.log("input", filename, contentType);
 
       let dimensions;
       switch (contentType) {
@@ -185,17 +187,4 @@ function getSvgDimensions(data: Uint8Array): { width: number; height: number } {
   return { width, height };
 }
 
-async function parseFormData(request: Request) {
-  if (request && request.headers && request.body) {
-    const contentType = request.headers.get("content-type")!;
-    const boundary = contentType.match(/boundary=([^\s;]+)/)![1];
-    const reader = new MultipartReader(
-      await request.body.getReader(),
-      boundary
-    );
-    const formData = await reader.readForm();
-    return formData;
-  } else {
-    throw new Error("parseFormData error invlaid request");
-  }
-}
+export const config = { path: "/api/image-dimensions" };

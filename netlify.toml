@@ -1,7 +1,36 @@
 [build]
-  publish = "build"
+  publish = "public"
+  command = "npm run build"
   functions = "netlify/functions"
 
 [[edge_functions]]
-  path = "/image-dimensions"
   function = "image-dimensions"
+  path = "/api/image-dimensions"
+
+[[edge_functions]]
+  function = "convert-image"
+  path = "/api/convert-image"
+
+[[edge_functions]]
+  function = "generate-thumbnail"
+  path = "/api/generate-thumbnail"
+
+[[edge_functions]]
+  function = "analyze-image"
+  path = "/api/analyze-image"
+
+[[edge_functions]]
+  function = "crop-image"
+  path = "/api/crop-image"
+
+[[edge_functions]]
+  function = "resize-image"
+  path = "/api/resize-image"
+
+[[edge_functions]]
+  function = "edge-detection"
+  path = "/api/edge-detection"
+
+[[edge_functions]]
+  function = "compress-image"
+  path = "/api/compress-image"
