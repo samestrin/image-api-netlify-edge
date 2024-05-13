@@ -1,0 +1,7 @@
+[build]
+  publish = "build"
+  functions = "netlify/functions"
+
+[[edge_functions]]
+  path = "/image-dimensions"
+  function = "image-dimensions"
