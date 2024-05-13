@@ -30,6 +30,7 @@ While resource-limited, Netlify provides _1M/month requests_ to edge functions p
 ### **Dependencies**
 
 - **Netlify**: For deploying serverless functions.
+- **Deno**: A secure runtime for JavaScript and TypeScript, used for running the edge functions.
 - **ImageMagick**: For performing image manipulations.
 - **multiParser**: For parsing multipart form data.
 
