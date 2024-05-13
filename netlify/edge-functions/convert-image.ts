@@ -41,7 +41,7 @@ export default async (request: Request) => {
 
       // Read and convert the image
       await ImageMagick.read(inputFile, async (image: MagickImage) => {
-        await image.write(outputFile);
+        await image.create(outputFile);
       });
 
       // Read the converted image data
