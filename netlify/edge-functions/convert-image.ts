@@ -8,6 +8,17 @@ import {
 
 await initialize();
 
+/**
+ * Handles the image conversion request.
+ *
+ * @param request - The incoming HTTP request.
+ * @returns The HTTP response with the converted image or an error message.
+ * @throws Will throw an error if the request method is not POST or if processing fails.
+ *
+ * @example
+ * // How to call the function.
+ * fetch('/api/convert-image', { method: 'POST', body: formData });
+ */
 export default async (request: Request) => {
   if (request.method === "POST") {
     try {
@@ -66,18 +77,22 @@ export default async (request: Request) => {
   return new Response("Method Not Allowed", { status: 405 });
 };
 
-function capitalizeWords(str) {
-  // Split the string into an array of words
+/**
+ * Capitalizes the first letter of each word in a string.
+ *
+ * @param str - The string to capitalize.
+ * @returns The capitalized string.
+ *
+ * @example
+ * // How to use the function.
+ * const capitalized = capitalizeWords("example string");
+ */
+function capitalizeWords(str: string): string {
   const words = str.split(" ");
-
-  // Loop through each word and capitalize the first letter
   const capitalizedWords = words.map((word) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   });
-
-  // Join the capitalized words back into a string
   const capitalizedString = capitalizedWords.join(" ");
-
   return capitalizedString;
 }
 

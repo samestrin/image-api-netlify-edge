@@ -10,6 +10,17 @@ import {
 
 await initialize();
 
+/**
+ * Handles the image edge enhancement request.
+ *
+ * @param request - The incoming HTTP request.
+ * @returns The HTTP response with the enhanced image or an error message.
+ * @throws Will throw an error if the request method is not POST or if processing fails.
+ *
+ * @example
+ * // How to call the function.
+ * fetch('/api/edge-enhance', { method: 'POST', body: formData });
+ */
 export default async (request: Request) => {
   if (request.method === "POST") {
     try {

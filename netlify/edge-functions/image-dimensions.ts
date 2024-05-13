@@ -1,5 +1,16 @@
 import { multiParser } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
 
+/**
+ * Handles the image dimensions request.
+ *
+ * @param request - The incoming HTTP request.
+ * @returns The HTTP response with the image dimensions or an error message.
+ * @throws Will throw an error if the request method is not POST or if processing fails.
+ *
+ * @example
+ * // How to call the function.
+ * fetch('/api/image-dimensions', { method: 'POST', body: formData });
+ */
 export default async (request: Request) => {
   if (request.method === "POST") {
     try {
@@ -63,6 +74,17 @@ export default async (request: Request) => {
   return new Response("Method Not Allowed", { status: 405 });
 };
 
+/**
+ * Extracts the dimensions of a JPEG image.
+ *
+ * @param data - The image data as a Uint8Array.
+ * @returns The width and height of the image.
+ * @throws Will throw an error if the JPEG file is invalid or dimensions are not found.
+ *
+ * @example
+ * // How to use the function.
+ * const dimensions = getJpegDimensions(fileData);
+ */
 function getJpegDimensions(data: Uint8Array): {
   width: number;
   height: number;
@@ -94,6 +116,17 @@ function getJpegDimensions(data: Uint8Array): {
   throw new Error("No size information found in JPEG");
 }
 
+/**
+ * Extracts the dimensions of a PNG image.
+ *
+ * @param data - The image data as a Uint8Array.
+ * @returns The width and height of the image.
+ * @throws Will throw an error if the PNG file is invalid.
+ *
+ * @example
+ * // How to use the function.
+ * const dimensions = getPngDimensions(fileData);
+ */
 function getPngDimensions(data: Uint8Array): { width: number; height: number } {
   if (
     data[0] !== 0x89 ||
@@ -109,6 +142,17 @@ function getPngDimensions(data: Uint8Array): { width: number; height: number } {
   return { width, height };
 }
 
+/**
+ * Extracts the dimensions of a GIF image.
+ *
+ * @param data - The image data as a Uint8Array.
+ * @returns The width and height of the image.
+ * @throws Will throw an error if the GIF file is invalid.
+ *
+ * @example
+ * // How to use the function.
+ * const dimensions = getGifDimensions(fileData);
+ */
 function getGifDimensions(data: Uint8Array): { width: number; height: number } {
   if (data[0] !== 0x47 || data[1] !== 0x49 || data[2] !== 0x46) {
     throw new Error("Invalid GIF file");
@@ -119,6 +163,17 @@ function getGifDimensions(data: Uint8Array): { width: number; height: number } {
   return { width, height };
 }
 
+/**
+ * Extracts the dimensions of a BMP image.
+ *
+ * @param data - The image data as a Uint8Array.
+ * @returns The width and height of the image.
+ * @throws Will throw an error if the BMP file is invalid.
+ *
+ * @example
+ * // How to use the function.
+ * const dimensions = getBmpDimensions(fileData);
+ */
 function getBmpDimensions(data: Uint8Array): { width: number; height: number } {
   const view = new DataView(data.buffer);
   const width = view.getInt32(18, true); // Little endian
@@ -126,6 +181,17 @@ function getBmpDimensions(data: Uint8Array): { width: number; height: number } {
   return { width, height };
 }
 
+/**
+ * Extracts the dimensions of a TIFF image.
+ *
+ * @param data - The image data as a Uint8Array.
+ * @returns The width and height of the image.
+ * @throws Will throw an error if the TIFF file is invalid or dimensions are not found.
+ *
+ * @example
+ * // How to use the function.
+ * const dimensions = getTiffDimensions(fileData);
+ */
 function getTiffDimensions(data: Uint8Array): {
   width: number;
   height: number;
@@ -173,6 +239,17 @@ function getTiffDimensions(data: Uint8Array): {
   return { width, height };
 }
 
+/**
+ * Extracts the dimensions of an SVG image.
+ *
+ * @param data - The image data as a Uint8Array.
+ * @returns The width and height of the image.
+ * @throws Will throw an error if the SVG file is invalid.
+ *
+ * @example
+ * // How to use the function.
+ * const dimensions = getSvgDimensions(fileData);
+ */
 function getSvgDimensions(data: Uint8Array): { width: number; height: number } {
   const decoder = new TextDecoder("utf-8");
   const svgContent = decoder.decode(data);

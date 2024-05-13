@@ -8,6 +8,17 @@ import {
 
 await initialize();
 
+/**
+ * Handles the image analysis request.
+ *
+ * @param request - The incoming HTTP request.
+ * @returns The HTTP response with brightness and histogram data or an error message.
+ * @throws Will throw an error if the request method is not POST or if processing fails.
+ *
+ * @example
+ * // How to call the function.
+ * fetch('/api/analyze-image', { method: 'POST', body: formData });
+ */
 export default async (request: Request) => {
   if (request.method === "POST") {
     try {
