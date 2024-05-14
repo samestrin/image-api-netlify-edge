@@ -1,4 +1,4 @@
-# image-api-netlify-edges
+# image-api-netlify-edge
 
 [![Star on GitHub](https://img.shields.io/github/stars/samestrin/image-api-netlify-edge?style=social)](https://github.com/samestrin/image-api-netlify-edge/stargazers)[![Fork on GitHub](https://img.shields.io/github/forks/samestrin/image-api-netlify-edge?style=social)](https://github.com/samestrin/image-api-netlify-edge/network/members)[![Watch on GitHub](https://img.shields.io/github/watchers/samestrin/image-api-netlify-edge?style=social)](https://github.com/samestrin/image-api-netlify-edge/watchers)
 
