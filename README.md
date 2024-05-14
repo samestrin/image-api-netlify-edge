@@ -1,6 +1,6 @@
-# image-api-netlify-edge-functions
+# image-api-netlify-edges
 
-[![Star on GitHub](https://img.shields.io/github/stars/samestrin/image-api-netlify-edge-function?style=social)](https://github.com/samestrin/image-api-netlify-edge-function/stargazers)[![Fork on GitHub](https://img.shields.io/github/forks/samestrin/image-api-netlify-edge-function?style=social)](https://github.com/samestrin/image-api-netlify-edge-function/network/members)[![Watch on GitHub](https://img.shields.io/github/watchers/samestrin/image-api-netlify-edge-function?style=social)](https://github.com/samestrin/image-api-netlify-edge-function/watchers)
+[![Star on GitHub](https://img.shields.io/github/stars/samestrin/image-api-netlify-edge?style=social)](https://github.com/samestrin/image-api-netlify-edge/stargazers)[![Fork on GitHub](https://img.shields.io/github/forks/samestrin/image-api-netlify-edge?style=social)](https://github.com/samestrin/image-api-netlify-edge/network/members)[![Watch on GitHub](https://img.shields.io/github/watchers/samestrin/image-api-netlify-edge?style=social)](https://github.com/samestrin/image-api-netlify-edge/watchers)
 
 ![Version 0.0.1](https://img.shields.io/badge/Version-0.0.1-blue)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)[![Built with Node.js](https://img.shields.io/badge/Built%20with-TypeScript-green)](https://www.typescriptlang.org/)
 
@@ -307,4 +307,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Share
 
-[![Twitter](https://img.shields.io/badge/X-Tweet-blue)](https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20project!&url=https://github.com/samestrin/image-api-netlify-edge-function) [![Facebook](https://img.shields.io/badge/Facebook-Share-blue)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/samestrin/image-api-netlify-edge-function) [![LinkedIn](https://img.shields.io/badge/LinkedIn-Share-blue)](https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/samestrin/image-api-netlify-edge-function)
+[![Twitter](https://img.shields.io/badge/X-Tweet-blue)](https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20project!&url=https://github.com/samestrin/image-api-netlify-edge) [![Facebook](https://img.shields.io/badge/Facebook-Share-blue)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/samestrin/image-api-netlify-edge) [![LinkedIn](https://img.shields.io/badge/LinkedIn-Share-blue)](https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/samestrin/image-api-netlify-edge)

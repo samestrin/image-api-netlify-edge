@@ -1,16 +1,16 @@
 {
-  "name": "image-api-netlify-edge-function",
+  "name": "image-api-netlify-edge",
   "version": "0.0.1",
   "description": "image-size-api-netlify-edge-functions is a collection of serverless functions designed to handle various image processing tasks, deployed on the Netlify Edge platform.",
   "author": "Sam Estrin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/samestrin/image-api-netlify-edge-functions/issues"
+    "url": "https://github.com/samestrin/image-api-netlify-edges/issues"
   },
-  "homepage": "https://github.com/samestrin/image-api-netlify-edge-functions#readme",
+  "homepage": "https://github.com/samestrin/image-api-netlify-edges#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/samestrin/image-api-netlify-edge-functions.git"
+    "url": "git+https://github.com/samestrin/image-api-netlify-edges.git"
   },
   "main": "public/index.html",
   "scripts": {
