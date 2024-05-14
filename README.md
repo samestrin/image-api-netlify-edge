@@ -72,7 +72,6 @@ The `netlify.toml` file contains the configuration for the edge functions. Each 
 ```toml
 [build]
   publish = "public"
-  functions = "netlify/functions"
 
 [[edge_functions]]
   function = "image-dimensions"
