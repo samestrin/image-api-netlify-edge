@@ -103,8 +103,6 @@ The `netlify.toml` file contains the configuration for the edge functions. Each 
   path = "/api/edge-enhance"
 ```
 
-Endpoints Documentation
-
 ## Endpoints
 
 ### Analyze Image
