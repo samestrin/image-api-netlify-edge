@@ -4,7 +4,7 @@
 
 ![Version 0.0.1](https://img.shields.io/badge/Version-0.0.1-blue)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)[![Built with Node.js](https://img.shields.io/badge/Built%20with-TypeScript-green)](https://www.typescriptlang.org/)
 
-**'image-api-netlify-edge'** is a collection of serverless functions for various image processing tasks hosted on Netlify's Edge platform. While Netlify Edge Functions are known for low latency and efficiency, this project aims to explore their capabilities with demanding, resource-intensive workloads. Leveraging Deno and ImageMagick, it covers tasks like image analysis, conversion, cropping, resizing, and thumbnail generation while exploring how far Netlify Edge Functions can go within their resource constraints when tackling potentially intensive image processing operations.
+**image-api-netlify-edge** is a collection of serverless functions for various image processing tasks hosted on Netlify's Edge platform. While Netlify Edge Functions are known for low latency and efficiency, this project aims to explore their capabilities with demanding, resource-intensive workloads. Leveraging Deno and ImageMagick, it covers tasks like image analysis, conversion, cropping, resizing, and thumbnail generation while exploring how far Netlify Edge Functions can go within their resource constraints when tackling potentially intensive image processing operations.
 
 ### **Netlify Edge Functions**
 
