@@ -15,7 +15,7 @@ Edge functions have limits for their size and the amount of memory and execution
 - **CPU execution time per request**: _50 ms_. This tracks all time spent running your scripts. Execution time does not include time spent waiting for resources or responses.
 - **Response header timeout**: 40 s
 
-While resource-limited, Netlify provides **_1M/month requests_** to edge functions per site at the free tier. Pro members have _2M/month requests_.
+While resource-limited, Netlify provides **_1M/month requests to edge functions per site at the free tier_**. Pro members have _2M/month requests_.
 
 ### **Features**
 
